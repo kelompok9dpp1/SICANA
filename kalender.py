@@ -41,6 +41,25 @@ def tampilkan_jadwal_hari_ini():
     hari_ini = datetime.date.today()
     tampilkan_jadwal_tanggal(hari_ini.year, hari_ini.month, hari_ini.day)
 
+
+CONTOH_DEADLINE = [
+    {"tanggal": "2026-12-03", "judul": "Laporan DDP1", "jenis": "Tugas"},
+    {"tanggal": "2026-12-15", "judul": "UAS Matdis", "jenis": "Ujian"},
+]
+
+def tampilkan_deadline_terdekat(jumlah_hari=7):
+    hari_ini = datetime.date.today()
+    print(f"\n=== Deadline {jumlah_hari} hari ke depan ===")
+    ada = False
+    for d in CONTOH_DEADLINE:
+        tgl = datetime.date.fromisoformat(d["tanggal"])
+        sisa = (tgl - hari_ini).days
+        if 0 <= sisa <= jumlah_hari:
+            print(f"  [{d['jenis']}] {d['judul']}: {tgl}, {sisa} hari lagi")
+            ada = True
+    if not ada:
+        print("  Aman, tidak ada deadline dekat")
+
 if __name__ == "__main__":
-    tampilkan_jadwal_mingguan()
     tampilkan_jadwal_hari_ini()
+    tampilkan_deadline_terdekat(30)
